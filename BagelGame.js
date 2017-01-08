@@ -36,21 +36,21 @@ document.getElementById('guess').setAttribute('maxlength', '3')
 $('.btn').on('click', function(e) {
     e.preventDefault();
     passOrFail();
-    if(proceed == true){
-      check();
-    }else{
-      alert("Pick a number bigger than 100");
+    if (proceed == true) {
+        check();
+    } else {
+        alert("Pick a number bigger than 100");
     };
 })
 
 //Verifies a three digit number has been entered
-function passOrFail(){
-  var formValue = document.getElementById("guess").value;
-  if(parseInt(formValue) >99){
-    proceed = true;
-  }else{
-    proceed = false;
-  }
+function passOrFail() {
+    var formValue = document.getElementById("guess").value;
+    if (parseInt(formValue) > 99) {
+        proceed = true;
+    } else {
+        proceed = false;
+    }
 }
 
 //Checks answer and returns a string containing pico,fermi, or bagels
