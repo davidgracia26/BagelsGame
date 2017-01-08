@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Bagel Game</title>
     <!-- Latest compiled and minified CSS -->
@@ -9,26 +10,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
     <style>
-    .column1 {
-      height: 100vh;
-      background-color: lightblue;
-    }
+        .column1 {
+            height: 100vh;
+            background-color: lightblue;
+        }
     </style>
 
-  </head>
-  <body>
+</head>
+
+<body>
 
 
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-6 column1">
-          <pre><strong>Welcome to Bagels!</strong>
-
+        <div class="row">
+            <div class="col-xs-6 column1">
+                <pre><strong>Welcome to Bagels!</strong>
 The computer game Bagels was created by Resek and Rowe from the
 Lawrence Hall of Science in Berkeley, California. In the game of
 Bagels, you must guess the number that the computer is thinking of.
 
-You have 20 turns to guess the hidden number.
+You have 20 turns to guess the hidden number which is three digits and has unique digits.
 
 Along the way, you will be given hints:
 
@@ -48,27 +49,24 @@ For example, the number is 398. Here are some sample responses:
 In theory, you should be able to guess the number in 8 moves.
 If you don't guess the number in 20 moves then you lose.
 
-When entering a number like 35, put 035 to satisfy the requirements
-of the input.
-
 
           </pre>
-        </div>
-        <div class="col-xs-6">
-          <p>The number you're trying to guess
-          </p>
-          <p id="entry">
-            <form id="newForm">
-              Guess:
-              <input type="text" id="guess" class="guess" name="guess">
-              <button id="submit" class="btn">Submit
+            </div>
+            <div class="col-xs-6">
+                <p>The number you're trying to guess
+                </p>
+                <p id="entry">
+                    <form id="newForm">
+                        Guess:
+                        <input type="text" id="guess" class="guess" name="guess">
+                        <button id="submit" class="btn">Submit
               </button>
-            </form>
-            <p id="placeEntry">
-            </p>
-          </p>
+                    </form>
+                    <p id="placeEntry">
+                    </p>
+                </p>
+            </div>
         </div>
-      </div>
     </div>
 
 
@@ -77,5 +75,6 @@ of the input.
     <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="BagelGame.js"></script>
-  </body>
+</body>
+
 </html>

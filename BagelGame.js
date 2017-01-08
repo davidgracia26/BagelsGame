@@ -1,164 +1,158 @@
-//Establishes number
-var ones = Math.floor((Math.random() * 10))
-var tens = Math.floor((Math.random() * 10))
-var hundreds = Math.floor((Math.random() * 10))
+//Establishes three digit number with unique digits
 
-var onesString = ones.toString()
-var tensString = tens.toString()
-var hundredsString = hundreds.toString()
+var answer = produceNumberWithUniqueDigits();
 
-//Display when debugging
-/*var entry = document.getElementById("entry")
-entry.innerHTML = (hundreds * 100) + (tens * 10) + ones
-*/
-var myArray = [hundredsString, tensString, onesString]
+var proceed = false;
+
+function produceNumberWithUniqueDigits() {
+
+    var uniqueNumber = (Math.floor(Math.random() * 898) + 101).toString();
+
+    for (var n = 0; n < uniqueNumber.length - 1; n++) {
+
+        if (n == 0) {
+            if (uniqueNumber.charAt(n) == uniqueNumber.charAt(n + 1) || uniqueNumber.charAt(n) == uniqueNumber.charAt(n + 2)) {
+                return produceNumberWithUniqueDigits();
+            }
+        }
+        if (n == 1) {
+            if (uniqueNumber.charAt(n) == uniqueNumber.charAt(n + 1)) {
+                return produceNumberWithUniqueDigits();
+            } else {
+                return uniqueNumber;
+            }
+        }
+    }
+}
+
+var displayResults = [];
+var screenResults = "";
+
 //Creates an empty array to store objects
 var otherArray = []
 
-document.getElementById('guess').setAttribute('maxlength','3')
+document.getElementById('guess').setAttribute('maxlength', '3')
 
 $('.btn').on('click', function(e) {
-  e.preventDefault();
-  check();
+    e.preventDefault();
+    passOrFail();
+    if(proceed == true){
+      check();
+    }else{
+      alert("Pick a number bigger than 100");
+    };
 })
-/*
-sbmt.addEventListener("click", function(e) {
-  e.preventDefault();
-  check();
-},false)
-*/
-function check() {
-  var newNode = document.createElement("p")
-  var formValue = document.getElementById("guess").value
-  console.log(typeof formValue)
-  var text = document.createTextNode(formValue)
 
-  var guessString = formValue.toString().split("")
-  var myObject = {
-    guess: guessString
+//Verifies a three digit number has been entered
+function passOrFail(){
+  var formValue = document.getElementById("guess").value;
+  if(parseInt(formValue) >99){
+    proceed = true;
+  }else{
+    proceed = false;
   }
-
-  otherArray.push(myObject)
-
-  var arrayLength = otherArray.length
-
-  console.log(arrayLength)
-  //Put && statements first
-  if ((guessString[0] == hundredsString) && (guessString[1] == tensString) && (guessString[2] == onesString)) {
-    alert("You won!")
-    var newNode = document.createElement("p")
-    var formValue = document.getElementById("guess").value
-    var text = document.createTextNode(arrayLength +":" + " " + formValue + " - " + "Winning Number")
-    newNode.appendChild(text)
-    document.getElementById("placeEntry").appendChild(newNode)
-    var entry = document.getElementById("entry")
-    entry.innerHTML = (hundreds * 100) + (tens * 10) + ones
-    var element = document.getElementById('newForm')
-    element.parentNode.removeChild(element)
-    return
-  }
-  if ((guessString[0] == hundredsString) && (guessString[1] == onesString) && (guessString[2] == tensString)) {
-    var hint = "Fermi Pico Pico"
-    createNewRow(hint)
-    return
-  }
-  if ((guessString[1] == tensString) && (guessString[0] == onesString) && (guessString[2] == hundredsString)) {
-    var hint = "Pico Fermi Pico"
-    createNewRow(hint)
-    return
-  }
-  if ((guessString[2] == onesString) && (guessString[0] == tensString) && (guessString[1] == hundredsString)) {
-        var hint = "Pico Pico Fermi"
-        createNewRow(hint)
-        return
-      }
-  if (((guessString[0] == tensString) && (guessString[1] == onesString) && (guessString[2] == hundredsString))
-      || ((guessString[0] == onesString) && (guessString[1] == hundredsString) && (guessString[2] == tensString))) {
-        var hint = "Pico Pico Pico"
-        createNewRow(hint)
-        return
-      }
-  if (((guessString[0] !== hundredsString) && (guessString[1] == onesString) && (guessString[2] == tensString))
-      || ((guessString[0] == onesString) && (guessString[1] !== hundredsString) && (guessString[2] == tensString))
-      || ((guessString[0] == tensString) && (guessString[1] == onesString) && (guessString[2] !== hundredsString))
-      || ((guessString[0] == onesString) && (guessString[1] !== tensString) && (guessString[2] == hundredsString))
-      || ((guessString[0] == onesString) && (guessString[1] == hundredsString) && (guessString[2] !== tensString))
-      || ((guessString[0] !== tensString) && (guessString[1] == onesString) && (guessString[2] == hundredsString))
-      || ((guessString[0] !== onesString) && (guessString[1] == hundredsString) && (guessString[2] == tensString))
-      || ((guessString[0] == tensString) && (guessString[1] !== onesString) && (guessString[2] == hundredsString))
-      || ((guessString[0] == tensString) && (guessString[1] == hundredsString) && (guessString[2] !== onesString)))  {
-        var hint = "Pico Pico"
-        createNewRow(hint)
-        return
-      }
-  if (((guessString[0] == hundredsString) && (guessString[1] == tensString) && (guessString[2] !== onesString))
-      || ((guessString[0] !== hundredsString) && (guessString[1] == tensString) && (guessString[2] == onesString))
-      || ((guessString[0] == hundredsString) && (guessString[1] !== tensString) && (guessString[2] == onesString))) {
-      var hint = "Fermi Fermi"
-      createNewRow(hint)
-      return
-      }
-  if (((guessString[0] == onesString) && (guessString[1] == tensString) && (guessString[2] !== hundredsString))
-      || ((guessString[0] == tensString) && (guessString[1] !== hundredsString) && (guessString[2] == onesString))
-      || ((guessString[0] !== tensString) && (guessString[1] == hundredsString) && (guessString[2] == onesString))) {
-        var hint = "Pico Fermi"
-        createNewRow(hint)
-        return
-      }
-  if (((guessString[0] == hundredsString) && (guessString[1] == onesString) && (guessString[2] !== tensString))
-      || ((guessString[0] == hundredsString) && (guessString[1] !== onesString) && (guessString[2] == tensString))
-      || ((guessString[0] !== onesString) && (guessString[1] == tensString) && (guessString[2] == hundredsString))) {
-        var hint = "Fermi Pico"
-        createNewRow(hint)
-        return
-      }
-  if (((guessString[0] == hundredsString) && (guessString[1] !== tensString) && (guessString[2] !== onesString))
-      || ((guessString[0] !== hundredsString) && (guessString[1] == tensString) && (guessString[2] !== onesString))
-      || ((guessString[0] !== hundredsString) && (guessString[1] !== tensString) && (guessString[2] == onesString))) {
-    var hint = "Fermi"
-    createNewRow(hint)
-    return
-  }
-  if ((guessString[0] == tensString) || (guessString[0] == onesString)
-      || (guessString[1] == hundredsString) || (guessString[1] == onesString)
-      || (guessString[2] == hundredsString) || (guessString[2] == tensString)) {
-    var hint = "Pico"
-    createNewRow(hint)
-    return
-  }
-  if (((guessString[0] !== hundredsString) || (guessString[0] !== tensString) || (guessString[0] !== onesString))
-      && ((guessString[1] !== hundredsString) || (guessString[1] !== tensString) || (guessString[1] !== onesString))
-      && ((guessString[2] !== hundredsString) || (guessString[2] !== tensString) || (guessString[2] !== onesString))) {
-        var hint = "Bagels"
-        createNewRow(hint)
-        return
-      }
 }
 
+//Checks answer and returns a string containing pico,fermi, or bagels
+function check() {
+    var newNode = document.createElement("p");
+    var formValue = document.getElementById("guess").value;
+    var text = document.createTextNode(formValue);
+
+    var guessString = formValue;
+    var myObject = {
+        guess: guessString
+    }
+
+    otherArray.push(myObject);
+
+    var arrayLength = otherArray.length;
+
+    for (var i = 0; i < answer.length; i++) {
+        if (answer.toString().charAt(i) == guessString.charAt(i)) {
+            var addToDisplayResults = {
+                index: i,
+                result: "Fermi"
+            };
+            displayResults.push(addToDisplayResults);
+        };
+    }
+
+    for (var j = 0; j < answer.length; j++) {
+
+        for (var k = 0; k < guessString.length; k++) {
+            if (k != j) {
+                if (answer.toString().charAt(j) == guessString.charAt(k)) {
+                    var addToDisplayResults = {
+                        index: k,
+                        result: "Pico"
+                    };
+                    displayResults.push(addToDisplayResults);
+                };
+            }
+        }
+    }
+
+    if (displayResults.length == 0) {
+        var addToDisplayResults = {
+            index: 0,
+            result: "Bagels"
+        };
+        displayResults.push(addToDisplayResults);
+    }
+
+    for (var x = 0; x < answer.length; x++) {
+        for (var y = 0; y < displayResults.length; y++) {
+            if (displayResults[y].index == x) {
+                screenResults += displayResults[y].result + " ";
+            }
+        }
+    }
+
+
+
+    if (guessString == answer) {
+        alert("You won!");
+        var newNode = document.createElement("p");
+        var formValue = document.getElementById("guess").value;
+        var text = document.createTextNode(arrayLength + ":" + " " + formValue + " - " + "Winning Number");
+        newNode.appendChild(text);
+        document.getElementById("placeEntry").appendChild(newNode);
+        var entry = document.getElementById("entry");
+        entry.innerHTML = answer;
+        var element = document.getElementById('newForm');
+        element.parentNode.removeChild(element);
+        return
+    } else {
+        createNewRow(screenResults.trim());
+        displayResults = [];
+        screenResults = "";
+    }
+}
+
+//Writes the results on the page
 function createNewRow(hint) {
-  var arrayLength = otherArray.length
-  if (arrayLength == 19) {
-    alert("Last Turn")
-  }
-  if (arrayLength == 20) {
-    alert("You Lost")
-    var newNode = document.createElement("p")
-    var formValue = document.getElementById("guess").value
-    var text = document.createTextNode(arrayLength +":" + " " + formValue + " - " + hint)
-    newNode.appendChild(text)
-    document.getElementById("placeEntry").appendChild(newNode)
-    console.log(formValue)
-    var getRidOf = document.getElementById('newForm')
-    getRidOf.parentNode.removeChild(getRidOf)
-    var entry = document.getElementById("entry")
-    entry.innerHTML = (hundreds * 100) + (tens * 10) + ones
-    return
-  }
-  var newNode = document.createElement("p")
-  var formValue = document.getElementById("guess").value
-  var text = document.createTextNode(arrayLength +":" + " " + formValue + " - " + hint)
-  newNode.appendChild(text)
-  document.getElementById("placeEntry").appendChild(newNode)
-  document.getElementById("guess").value = ''
-  console.log(formValue)
+    var arrayLength = otherArray.length
+    if (arrayLength == 19) {
+        alert("Last Turn");
+    }
+    if (arrayLength == 20) {
+        alert("You Lost");
+        var newNode = document.createElement("p");
+        var formValue = document.getElementById("guess").value;
+        var text = document.createTextNode(arrayLength + ":" + " " + formValue + " - " + hint);
+        newNode.appendChild(text);
+        document.getElementById("placeEntry").appendChild(newNode);
+        var getRidOf = document.getElementById('newForm');
+        getRidOf.parentNode.removeChild(getRidOf);
+        var entry = document.getElementById("entry");
+        entry.innerHTML = answer;
+        return
+    }
+    var newNode = document.createElement("p");
+    var formValue = document.getElementById("guess").value;
+    var text = document.createTextNode(arrayLength + ":" + " " + formValue + " - " + hint);
+    newNode.appendChild(text);
+    document.getElementById("placeEntry").appendChild(newNode);
+    document.getElementById("guess").value = '';
 }
